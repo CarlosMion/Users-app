@@ -1,12 +1,13 @@
 import { useQuery } from 'react-query';
 import { IUser, IUserVariables } from './types';
 
-import { get, isResponseError } from '../http-client';
+import { get } from '../http-client';
 import { RequestException } from 'api/types';
+import { isResponseError } from 'api/utils';
 
 async function getUsers({ login }: IUserVariables) {
   if (!login) {
-    throw new Error('user login is missing!');
+    throw new Error('login is missing!');
   }
 
   const endpoint = `/search/users?q=${login} in:login`;
@@ -22,8 +23,9 @@ async function getUsers({ login }: IUserVariables) {
 }
 
 export function useUsers({ login }: IUserVariables) {
-  const { data, isLoading } = useQuery<IUser>(`login_search=${login}`, () =>
-    getUsers({ login })
+  const { data, error, isLoading } = useQuery<IUser>(
+    `login_search=${login}`,
+    () => getUsers({ login })
   );
-  return { users: data, isLoading };
+  return { users: data, error, isLoading };
 }
