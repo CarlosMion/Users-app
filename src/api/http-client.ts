@@ -1,10 +1,6 @@
 import { BASE_URL } from './constants';
 import { CustomConfig, GetOptions } from './types';
 
-export function isResponseError(statusCode: number) {
-  return statusCode >= 400;
-}
-
 export function get({ endpoint }: GetOptions) {
   const endpointFullUrl = BASE_URL + endpoint;
   const customConfig = {
@@ -42,6 +38,7 @@ export async function client(
         ...data,
       };
     } catch (error) {
+      console.log('asdasdasdasd');
       return response;
     }
   });
