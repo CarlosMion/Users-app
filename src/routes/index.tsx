@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { NotFoundPage } from './not-found-page';
+import { NotFoundPage } from '../pages/not-found-page';
 
 export const routes = {
   search: '/',

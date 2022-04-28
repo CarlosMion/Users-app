@@ -1,4 +1,4 @@
-import { NotFoundPage } from 'routes/not-found-page';
+import { NotFoundPage } from 'pages/not-found-page';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
