@@ -1,5 +1,8 @@
-import { NotFoundPage } from 'pages/not-found-page';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+
+import { NotFoundPage } from 'pages/not-found-page';
+
+import { MainTemplate } from './styled';
 
 interface Props {
   children: ReactNode;
@@ -27,7 +30,7 @@ class ErrorBoundary extends Component<Props, State> {
       return <NotFoundPage />;
     }
 
-    return this.props.children;
+    return <MainTemplate>{this.props.children}</MainTemplate>;
   }
 }
 
