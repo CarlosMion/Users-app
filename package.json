@@ -28,9 +28,6 @@
     "web-vitals": "^2.1.0",
     "yup": "^0.32.11"
   },
-  "devDependencies": {
-    "msw": "^0.39.2"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
