@@ -4,14 +4,13 @@ export const colors = {
   sky: '#0187B8',
   skyHover: '#016C93',
   olympic: '#45A8CE',
-  overlay: '#444f62',
+  overlay: '#E4E6EA',
   blue: '#283583',
 
   // neutrals
   iron: '#444F5A',
   ironHover: '#363F48',
   shadow: '#9CA1AC',
-  silver: '#E4E6EA',
   cloud: '#F6F6F9',
   cloudHover: '#EFEFF3',
   white: '#FFFFFF',
