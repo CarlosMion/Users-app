@@ -1,6 +1,7 @@
-import ErrorBoundary from 'ErrorBoundary';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+
+import { ErrorBoundary } from 'components/error-boundary';
 
 import { ThemeProvider } from 'styled-components';
 import { LightTheme } from 'theme';

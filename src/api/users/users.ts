@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { IUser, IUserVariables } from './types';
+import { IUsersResult, IUserVariables } from './types';
 
 import { get } from '../http-client';
 import { RequestException } from 'api/types';
@@ -23,9 +23,9 @@ async function getUsers({ login }: IUserVariables) {
 }
 
 export function useUsers({ login }: IUserVariables) {
-  const { data, error, isLoading } = useQuery<IUser>(
+  const { data, error, isLoading } = useQuery<IUsersResult>(
     `login_search=${login}`,
     () => getUsers({ login })
   );
-  return { users: data, error, isLoading };
+  return { users: data?.items ?? [], error, isLoading };
 }
