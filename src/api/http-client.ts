@@ -38,7 +38,6 @@ export async function client(
         ...data,
       };
     } catch (error) {
-      console.log('asdasdasdasd');
       return response;
     }
   });
