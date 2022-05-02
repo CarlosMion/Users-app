@@ -1,21 +1,45 @@
 import React from 'react';
 
-import Typography from '@mui/material/Typography';
-import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import { visuallyHidden } from '@mui/utils';
 
-import { ITableHeader } from './types';
+import { ITableHead } from 'pages/results/types';
+import { IUser } from 'api/users/types';
 
-export const TableHeader = ({ title }: ITableHeader) => {
+export const TableHeader = ({ order, orderBy, onRequestSort, headCells }: ITableHead) => {
+  const createSortHandler = (property: keyof IUser) => (_event: React.MouseEvent<unknown>) => {
+    onRequestSort(property);
+  };
+
   return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-      }}
-    >
-      <Typography sx={{ flex: '1 1 100%' }} variant="h6" id="tableTitle" component="div">
-        {title}
-      </Typography>
-    </Toolbar>
+    <TableHead>
+      <TableRow>
+        {headCells.map(headCell => (
+          <TableCell
+            key={headCell.id}
+            align="left"
+            padding="normal"
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <Box component="span" sx={visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </Box>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+      </TableRow>
+    </TableHead>
   );
 };

@@ -1,4 +1,5 @@
-import { descendingComparator, getComparator } from '.';
+import { descendingComparator, getComparator, getEmptyRows } from '.';
+import { ROWS_PER_PAGE_NUMBER } from '../constants';
 
 describe('results page utils', () => {
   describe('descendingComparator', () => {
@@ -48,6 +49,25 @@ describe('results page utils', () => {
     it('returns positive result for descending sorting with smaller key value first', async () => {
       const result = getComparator('asc', 'login');
       expect(result({ login: 'a' }, { login: 'b' })).toEqual(-1);
+    });
+  });
+  describe('getEmptyRows', () => {
+    it('returns 0 for pageNumbers smaller than the last one', async () => {
+      const result = getEmptyRows({
+        pageNumber: 2,
+        resultsLength: 30,
+        rowsPerPage: ROWS_PER_PAGE_NUMBER,
+      });
+      expect(result).toEqual(0);
+    });
+
+    it('returns correct amount of empty rows for pageNumbers', async () => {
+      const result = getEmptyRows({
+        pageNumber: 3,
+        resultsLength: 30,
+        rowsPerPage: ROWS_PER_PAGE_NUMBER,
+      });
+      expect(result).toEqual(6);
     });
   });
 });

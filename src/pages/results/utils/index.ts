@@ -1,7 +1,7 @@
-import { Order } from '../types';
+import { ROWS_PER_PAGE_NUMBER } from '../constants';
+import { IGetEmptyRows, Order } from '../types';
 
 export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  console.log({ a, b, orderBy });
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -19,3 +19,12 @@ export function getComparator<Key extends keyof any>(
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
+
+export const getEmptyRows = ({
+  pageNumber,
+  resultsLength,
+  rowsPerPage,
+}: IGetEmptyRows) =>
+  pageNumber > 0
+    ? Math.max(0, (1 + pageNumber) * rowsPerPage - resultsLength)
+    : 0;
