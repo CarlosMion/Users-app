@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
@@ -9,7 +10,6 @@ import { routes } from 'routes/routes';
 import { Form, LoginTextField } from './styled';
 
 export function LoginForm() {
-  // const [formCep, setFormCep] = useState(cart.cep);
   const navigate = useNavigate();
 
   const LoginSearchSchema: any = Yup.object().shape({
@@ -21,13 +21,13 @@ export function LoginForm() {
     validateOnBlur: false,
 
     validationSchema: LoginSearchSchema,
-    onSubmit: async () => {
+    onSubmit: () => {
       navigate(`${routes.results}/${formik.values.login}`);
     },
   });
 
   return (
-    <Form onSubmit={formik.handleSubmit}>
+    <Form onSubmit={formik.handleSubmit} data-testid="login-form">
       <LoginTextField
         name="login"
         label="Login"
