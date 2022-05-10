@@ -2,6 +2,8 @@ import { ITableHeadCell } from './types';
 
 export const ROWS_PER_PAGE_NUMBER = 9;
 
+export const TABLE_ROW_HEIGHT = 53;
+
 export const headCells: ITableHeadCell[] = [
   {
     id: 'login',

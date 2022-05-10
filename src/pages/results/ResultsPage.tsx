@@ -8,20 +8,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
-import { IUser } from 'api/users/types';
-import { useUsers } from 'api/users';
+import { IItem } from 'api/items/types';
+import { useItems } from 'api/items';
 import { TableTitle } from 'components/table-title';
 import { TableHeader } from 'components/table-header/TableHeader';
 import { LoadingDots } from 'components/loading-dots';
 
-import { headCells, ROWS_PER_PAGE_NUMBER } from './constants';
+import { headCells, ROWS_PER_PAGE_NUMBER, TABLE_ROW_HEIGHT } from './constants';
 import { CenteredContainer, ConstrainedTableCell, Container, MobileHidden } from './styled';
 import { Order } from './types';
 import { getComparator, getEmptyRows } from './utils';
 
 export const ResultsPage = () => {
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof IUser>('login');
+  const [orderBy, setOrderBy] = React.useState<keyof IItem>('login');
   const [page, setPage] = React.useState(0);
 
   const { login } = useParams<{
@@ -29,14 +29,14 @@ export const ResultsPage = () => {
   }>();
 
   const {
-    users,
+    items,
     error: apiError,
     isLoading,
-  } = useUsers({
+  } = useItems({
     login,
   });
 
-  const handleRequestSort = (property: keyof IUser) => {
+  const handleRequestSort = (property: keyof IItem) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
@@ -46,22 +46,22 @@ export const ResultsPage = () => {
     setPage(newPage);
   };
 
-  const emptyRows = getEmptyRows({
-    pageNumber: page,
-    resultsLength: users.length,
-    rowsPerPage: ROWS_PER_PAGE_NUMBER,
-  });
-
   if (apiError) {
     return <CenteredContainer>Sorry, something went wrong with the request.</CenteredContainer>;
   }
+
+  const emptyRows = getEmptyRows({
+    pageNumber: page,
+    resultsLength: items.length,
+    rowsPerPage: ROWS_PER_PAGE_NUMBER,
+  });
 
   return (
     <Container>
       {!isLoading ? (
         <>
           <Box>
-            <TableTitle title={'Users'} />
+            <TableTitle title={'Items'} />
             <TableContainer>
               <Table aria-labelledby="tableTitle" size={'medium'}>
                 <TableHeader
@@ -71,18 +71,18 @@ export const ResultsPage = () => {
                   headCells={headCells}
                 />
                 <TableBody>
-                  {users
+                  {items
                     .slice(
                       page * ROWS_PER_PAGE_NUMBER,
                       page * ROWS_PER_PAGE_NUMBER + ROWS_PER_PAGE_NUMBER
                     )
                     .sort(getComparator(order, orderBy))
-                    .map(user => {
+                    .map((item: IItem) => {
                       return (
-                        <TableRow hover tabIndex={-1} key={user.login}>
-                          <ConstrainedTableCell>{user.login}</ConstrainedTableCell>
-                          <ConstrainedTableCell>{user.avatar_url}</ConstrainedTableCell>
-                          <ConstrainedTableCell>{user.type}</ConstrainedTableCell>
+                        <TableRow hover tabIndex={-1} key={item.login}>
+                          <ConstrainedTableCell>{item.login}</ConstrainedTableCell>
+                          <ConstrainedTableCell>{item.avatar_url}</ConstrainedTableCell>
+                          <ConstrainedTableCell>{item.type}</ConstrainedTableCell>
                         </TableRow>
                       );
                     })}
@@ -90,7 +90,7 @@ export const ResultsPage = () => {
                     {emptyRows > 0 && (
                       <TableRow
                         style={{
-                          height: 53 * emptyRows,
+                          height: TABLE_ROW_HEIGHT * emptyRows,
                         }}
                       >
                         <ConstrainedTableCell colSpan={3} />
@@ -103,7 +103,7 @@ export const ResultsPage = () => {
           </Box>
           <TablePagination
             component="div"
-            count={users?.length}
+            count={items.length}
             rowsPerPageOptions={[]} //to not show the option
             rowsPerPage={ROWS_PER_PAGE_NUMBER}
             page={page}

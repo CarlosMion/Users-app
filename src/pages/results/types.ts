@@ -1,14 +1,14 @@
-import { IUser } from 'api/users/types';
+import { IItem } from 'api/items/types';
 
 export type Order = 'asc' | 'desc';
 
 export interface ITableHeadCell {
-  id: keyof IUser;
+  id: keyof IItem;
   label: string;
 }
 
 export interface ITableHead {
-  onRequestSort: (property: keyof IUser) => void;
+  onRequestSort: (property: keyof IItem) => void;
   order: Order;
   orderBy: string;
   headCells: ITableHeadCell[];
