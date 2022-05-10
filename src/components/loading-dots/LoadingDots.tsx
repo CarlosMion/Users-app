@@ -9,7 +9,12 @@ import { Circle, Container } from './styled';
 
 export function LoadingDots() {
   return (
-    <Container variants={loadingContainerVariants} initial="start" animate="end">
+    <Container
+      variants={loadingContainerVariants}
+      initial="start"
+      animate="end"
+      data-testid="loading-dots"
+    >
       <Circle variants={loadingCircleVariants} transition={loadingCircleTransition} />
       <Circle variants={loadingCircleVariants} transition={loadingCircleTransition} />
       <Circle variants={loadingCircleVariants} transition={loadingCircleTransition} />

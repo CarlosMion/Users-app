@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
-import { mockUsers } from 'api/fixtures';
-import { useUsers } from './users';
+import { mockItems } from 'api/fixtures';
+import { useItems } from './items';
 import { useQuery } from 'react-query';
 
 jest.mock('react-query', () => ({
@@ -9,17 +9,17 @@ jest.mock('react-query', () => ({
 
 const login = 'testLogin';
 
-describe('users', () => {
+describe('items', () => {
   it('gets propper return from useUsers', async () => {
     (useQuery as jest.Mock).mockReturnValueOnce({
       isLoading: false,
       error: {},
-      data: mockUsers,
+      data: mockItems,
     });
 
-    const { result } = renderHook(() => useUsers({ login }));
+    const { result } = renderHook(() => useItems({ login }));
 
-    expect(result.current.users).toEqual(mockUsers);
+    expect(result.current.items).toEqual(mockItems.items);
   });
 
   it('calls useUsers and get rejected', async () => {
@@ -35,11 +35,11 @@ describe('users', () => {
       data: undefined,
     });
 
-    const { result } = renderHook(() => useUsers({ login }));
+    const { result } = renderHook(() => useItems({ login }));
 
     const error: any = result.current.error;
 
-    expect(result.current.users).toBeUndefined();
+    expect(result.current.items).toStrictEqual([]);
     expect(error.others.message).toEqual(testError.message);
     expect(error.status).toBe(400);
     expect(error.statusText).toBe('Bad Request');

@@ -8,10 +8,10 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 
 import { ITableHead } from 'pages/results/types';
-import { IUser } from 'api/users/types';
+import { IItem } from 'api/items/types';
 
 export const TableHeader = ({ order, orderBy, onRequestSort, headCells }: ITableHead) => {
-  const createSortHandler = (property: keyof IUser) => (_event: React.MouseEvent<unknown>) => {
+  const createSortHandler = (property: keyof IItem) => (_event: React.MouseEvent<unknown>) => {
     onRequestSort(property);
   };
 

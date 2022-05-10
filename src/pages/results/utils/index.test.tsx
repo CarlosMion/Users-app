@@ -4,29 +4,17 @@ import { ROWS_PER_PAGE_NUMBER } from '../constants';
 describe('results page utils', () => {
   describe('descendingComparator', () => {
     it('returns negative result', async () => {
-      const result = descendingComparator(
-        { login: 'b' },
-        { login: 'a' },
-        'login'
-      );
+      const result = descendingComparator({ login: 'b' }, { login: 'a' }, 'login');
       expect(result).toEqual(-1);
     });
 
     it('returns positive result', async () => {
-      const result = descendingComparator(
-        { login: 'a' },
-        { login: 'b' },
-        'login'
-      );
+      const result = descendingComparator({ login: 'a' }, { login: 'b' }, 'login');
       expect(result).toEqual(1);
     });
 
     it('returns neutral result', async () => {
-      const result = descendingComparator(
-        { login: 'a' },
-        { login: 'a' },
-        'login'
-      );
+      const result = descendingComparator({ login: 'a' }, { login: 'a' }, 'login');
       expect(result).toEqual(0);
     });
   });

@@ -1,5 +1,4 @@
-import { ROWS_PER_PAGE_NUMBER } from '../constants';
-import { IGetEmptyRows, Order } from '../types';
+import { IGetEmptyRows, Order } from 'pages/results/types';
 
 export function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {

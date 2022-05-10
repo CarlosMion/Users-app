@@ -1,11 +1,11 @@
 import { useQuery } from 'react-query';
-import { IUsersResult, IUserVariables } from './types';
+import { IItemsResult, IItemsVariables } from './types';
 
 import { get } from '../http-client';
 import { RequestException } from 'api/types';
 import { isResponseError } from 'api/utils';
 
-async function getUsers({ login }: IUserVariables) {
+async function getItems({ login }: IItemsVariables) {
   if (!login) {
     throw new Error('login is missing!');
   }
@@ -22,10 +22,10 @@ async function getUsers({ login }: IUserVariables) {
   return result;
 }
 
-export function useUsers({ login }: IUserVariables) {
-  const { data, error, isLoading } = useQuery<IUsersResult>(
+export function useItems({ login }: IItemsVariables) {
+  const { data, error, isLoading } = useQuery<IItemsResult>(
     `login_search=${login}`,
-    () => getUsers({ login })
+    () => getItems({ login })
   );
-  return { users: data?.items ?? [], error, isLoading };
+  return { items: data?.items ?? [], error, isLoading };
 }

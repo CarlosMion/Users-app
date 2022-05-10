@@ -1,15 +1,15 @@
-export interface IUsersResult {
+export interface IItemsResult {
   total_count?: number;
   incomplete_results?: boolean;
-  items: IUser[];
+  items: IItem[];
 }
 
-export interface IUser {
+export interface IItem {
   avatar_url?: string;
   login?: string;
   type?: string;
 }
 
-export interface IUserVariables {
+export interface IItemsVariables {
   login?: string;
 }

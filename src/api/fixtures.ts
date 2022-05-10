@@ -1,4 +1,4 @@
-export const mockUsers = {
+export const mockItems = {
   total_count: 453,
   incomplete_results: false,
   items: [
